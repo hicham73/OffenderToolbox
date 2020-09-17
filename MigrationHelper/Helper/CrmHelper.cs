@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,11 @@ namespace MigrationHelper
 {
     public class CrmHelper
     {
-
         //static int[] entityCodes = { 1, 2, 10108, 10389, 10309, 10305, 10263, 10256, 10272, 10075 };
         public static string GetOptionFetch()
         {
 
-            var entityCodes = Setting.Entities.Replace(" ", "").Split(',');
+            var entityCodes = Setting.OptionEntitiesValue.Replace(" ", "").Split(',');
 
             var values = string.Empty;
             foreach (var code in entityCodes)
@@ -48,9 +48,9 @@ namespace MigrationHelper
         public static string GetFormulaFetch()
         {
             var values = string.Empty;
-            foreach (var en in App.CrmEntities)
+            foreach (var en in App.MigEntities)
             {
-                values += $"<value>{en.Name}</value>";
+                values += $"<value>{en.LogicalName}</value>";
             }
 
             var fetchData = new
@@ -80,6 +80,23 @@ namespace MigrationHelper
 
             return fetchXml;
 
+        }
+
+
+        public static bool IsOptionValueUsed(string entityName, string attributeName, int optionValue)
+        {
+            var qa = new QueryByAttribute(entityName);
+
+            qa.ColumnSet = new ColumnSet(false);
+            qa.TopCount = 1;
+            qa.AddAttributeValue(attributeName, optionValue);
+
+            var entities = CrmConnManager.LService.RetrieveMultiple(qa).Entities;
+
+            if (entities.Count > 0)
+                return true;
+            
+            return false;
         }
     }
 }

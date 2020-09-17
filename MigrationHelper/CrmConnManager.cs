@@ -29,8 +29,8 @@ namespace MigrationHelper
             if (m_lservice != null && m_rservice != null)
                 return;
 
-            m_lclient = new CrmServiceClient(@"Url=https://jms.crm9.dynamics.com;authtype=Office365;username=n-hwahbi@kingcounty.gov;password=Juliku88!");
-            m_rclient = new CrmServiceClient(@"Url=https://kc-jms-dev.crm9.dynamics.com;authtype=Office365;username=n-hwahbi@kingcounty.gov;password=Juliku88!;RequireNewInstance=true");
+            m_lclient = new CrmServiceClient(Setting.ConnString1);
+            m_rclient = new CrmServiceClient(Setting.ConnString2);
 
             m_lservice = (IOrganizationService)m_lclient.OrganizationWebProxyClient != null ? (IOrganizationService)m_lclient.OrganizationWebProxyClient : (IOrganizationService)m_lclient.OrganizationServiceProxy;
             m_rservice = (IOrganizationService)m_rclient.OrganizationWebProxyClient != null ? (IOrganizationService)m_rclient.OrganizationWebProxyClient : (IOrganizationService)m_rclient.OrganizationServiceProxy;

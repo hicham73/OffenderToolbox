@@ -43,16 +43,16 @@ namespace MigrationHelper.Manager
                 };
                 
 
-                var crmEntity = App.CrmEntities.Where(x => x.Name == entityName).FirstOrDefault();
+                var crmEntity = App.MigEntities.Where(x => x.LogicalName == entityName).FirstOrDefault();
                 if (crmEntity == null)
                 {
                     crmEntity = new CrmEntity()
                     {
-                        Name = entityName,
+                        LogicalName = entityName,
 
                     };
 
-                    App.CrmEntities.Add(crmEntity);
+                    App.MigEntities.Add(crmEntity);
                 }
 
                 crmEntity.Formulas.Add(formula);
