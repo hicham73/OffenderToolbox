@@ -10,36 +10,76 @@ namespace MigrationHelper
     public class CrmHelper
     {
         //static int[] entityCodes = { 1, 2, 10108, 10389, 10309, 10305, 10263, 10256, 10272, 10075 };
-        public static string GetOptionFetch()
+        public static string GetOptionFetch(int pageNum, string pagingCookie)
         {
 
-            var entityCodes = Setting.OptionEntitiesValue.Replace(" ", "").Split(',');
-
-            var values = string.Empty;
-            foreach (var code in entityCodes)
-            {
-                values += $"<value>{code}</value>";
-            }
             var fetchXml = $@"
-                    <fetch>
-                      <entity name='stringmap'>
-                        <attribute name='attributevalue' />
-                        <attribute name='attributename' />
-                        <attribute name='value' />
-                        <attribute name='objecttypecodename' />
-                        <attribute name='displayorder' />
-                        <attribute name='versionnumber' />
-                        <attribute name='objecttypecode' />
-                        <attribute name='langid' />
-                        <attribute name='organizationid' />
-                        <attribute name='stringmapid' />
-                        <filter>
-                          <condition attribute='objecttypecode' operator='in'>
-                            {values}
-                          </condition>
-                        </filter>
-                      </entity>
-                    </fetch>";
+                    <fetch page=""{pageNum}"" paging-cookie=""{pagingCookie}"">
+  <entity name=""stringmap"" >
+    <attribute name=""attributevalue"" />
+    <attribute name=""attributename"" />
+    <attribute name=""value"" />
+    <attribute name=""objecttypecodename"" />
+    <attribute name=""displayorder"" />
+    <attribute name=""versionnumber"" />
+    <attribute name=""objecttypecode"" />
+    <attribute name=""langid"" />
+    <attribute name=""organizationid"" />
+    <attribute name=""stringmapid"" />
+    <filter type=""and"" >
+      <condition attribute=""attributename"" operator=""not-in"" >
+        <value>statecode</value>
+        <value>statuscode</value>
+      </condition>
+      <filter type=""or"">
+        <condition attribute=""attributename"" operator=""begins-with"" value=""tri_""/>
+        <condition attribute=""attributename"" operator=""begins-with"" value=""kc_""/>
+      </filter>
+      <filter type=""or"">
+        <condition attribute=""objecttypecode"" operator=""gt"" value=""9999"" />
+        <condition attribute=""objecttypecode"" operator=""in"" >
+          <value>1</value>
+          <value>2</value>
+          <value>8</value>
+        </condition>
+      </filter>
+    </filter>
+  </entity>
+</fetch>";
+
+            //var entityCodes = Setting.OptionEntitiesValue.Replace(" ", "").Split(',');
+
+            //var entityCodes = App.MigEntities.Select(x => x.Code).ToArray<int>();
+
+            //var values = string.Empty;
+            //foreach (var code in entityCodes)
+            //{
+            //    values += $"<value>{code}</value>";
+            //}
+            //var fetchXml = $@"
+            //        <fetch>
+            //          <entity name='stringmap'>
+            //            <attribute name='attributevalue' />
+            //            <attribute name='attributename' />
+            //            <attribute name='value' />
+            //            <attribute name='objecttypecodename' />
+            //            <attribute name='displayorder' />
+            //            <attribute name='versionnumber' />
+            //            <attribute name='objecttypecode' />
+            //            <attribute name='langid' />
+            //            <attribute name='organizationid' />
+            //            <attribute name='stringmapid' />
+            //            <filter>
+            //              <condition attribute='objecttypecode' operator='in'>
+            //                {values}
+            //              </condition>
+            //              <condition attribute='attributename' operator='not-in'>
+            //                <value>statecode</value>
+            //                <value>statuscode</value>
+            //              </condition>
+            //            </filter>
+            //          </entity>
+            //        </fetch>";
 
             return fetchXml;
 
@@ -91,10 +131,17 @@ namespace MigrationHelper
             qa.TopCount = 1;
             qa.AddAttributeValue(attributeName, optionValue);
 
-            var entities = CrmConnManager.LService.RetrieveMultiple(qa).Entities;
-
-            if (entities.Count > 0)
+            try
+            {
+                var entities = CrmConnManager.LService.RetrieveMultiple(qa).Entities;
+                if (entities.Count > 0)
+                    return true;
+            }
+            catch (Exception ex)
+            {
                 return true;
+            }
+
             
             return false;
         }

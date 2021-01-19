@@ -24,7 +24,7 @@ namespace MigrationHelper
         }
 
         public static void LoadAllEntities() {
-            
+
             CrmConnManager.Connect();
 
             RetrieveAllEntitiesRequest req = new RetrieveAllEntitiesRequest
@@ -39,6 +39,7 @@ namespace MigrationHelper
             {
                 if (em.ObjectTypeCode != null)
                 {
+
                     var mige = new CrmEntity()
                     {
                         Code = (int)em.ObjectTypeCode,
@@ -47,23 +48,26 @@ namespace MigrationHelper
                     };
 
                     AllEntities.Add(mige);
+                    App.MigEntities.Add(mige);
 
-                    if (Setting.MigEntitiesList.Contains(em.LogicalName))
+                    foreach (var attr in em.Attributes)
                     {
-                        foreach (var attr in em.Attributes)
+
+                        if (attr.AttributeType.Value == AttributeTypeCode.Picklist)
                         {
-                            if (attr.AttributeType.Value == AttributeTypeCode.Picklist)
+                            mige.OptionAttributes.Add(new CrmOptionAttribute()
                             {
-                                mige.OptionAttributes.Add(new CrmOptionAttribute()
-                                {
-                                    Name = attr.LogicalName
-                                });
-                            }
-                            else if (attr.AttributeType.Value == AttributeTypeCode.Lookup)
+                                Name = attr.LogicalName
+                            });
+                        }
+                        else if (attr.AttributeType.Value == AttributeTypeCode.Lookup)
+                        {
+                            var am = attr as LookupAttributeMetadata;
+
+                            if (am.Targets.Count() > 0)
                             {
-                                var am = attr as LookupAttributeMetadata;
                                 var target = am.Targets[0];
-                                if (Setting.LookupEntitiesList.Contains(target))
+                                if (target.StartsWith("tri_") || target.StartsWith("kc_"))
                                 {
                                     var lookupEntity = App.CrmLookupEntities.Where(e => e.LogicalName == target).FirstOrDefault();
                                     if (lookupEntity == null)
@@ -79,14 +83,26 @@ namespace MigrationHelper
                                     {
                                         Name = attr.LogicalName,
                                         LookupEntity = lookupEntity
-                                         
+
                                     });
                                 }
-                                
+
                             }
+
                         }
-                        App.MigEntities.Add(mige);
                     }
+
+                }
+            }
+
+            foreach (var e in res.EntityMetadata)
+            {
+                var lookupEntity = App.CrmLookupEntities.Where(x => x.LogicalName == e.LogicalName).FirstOrDefault();
+                if (lookupEntity != null)
+                {
+                    lookupEntity.PrimaryNameAttribute = e.PrimaryNameAttribute;
+                    if (lookupEntity.LogicalName == "tri_state")
+                        lookupEntity.PrimaryNameAttribute = "tri_statename";
                 }
             }
         }

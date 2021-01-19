@@ -35,7 +35,7 @@ namespace MigrationHelper
 
             tvEntities.Nodes.Clear();
 
-            foreach (var ce in App.MigEntities)
+            foreach (var ce in App.AllEntities)
             {
                 var node = new TreeNode(ce.LogicalName);
                 tvEntities.Nodes.Add(node);

@@ -27,6 +27,8 @@ namespace MigrationHelper
         public List<CrmLookup> LeftOnlyLookups = new List<CrmLookup>();
         public List<CrmLookup> RightOnlyLookups = new List<CrmLookup>();
 
+        public string PrimaryNameAttribute { get; internal set; }
+        public bool Added { get; internal set; }
     }
 
     public class CrmAttribute

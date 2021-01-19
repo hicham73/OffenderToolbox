@@ -23,11 +23,22 @@ namespace MigrationHelper.Modules.OptionSetModule
 
             TVEntityLookup.Nodes.Clear();
 
-            foreach (var en in App.CrmLookupEntities)
+            foreach (var ce in App.MigEntities)
             {
-                var node = new TreeNode(en.LogicalName);
-                node.Tag = en;
+                var node = new TreeNode(ce.LogicalName);
                 TVEntityLookup.Nodes.Add(node);
+                foreach (var ca in ce.LookupAttributes)
+                {
+                    var an = new TreeNode(ca.Name);
+                    if (ca.LookupEntity.LeftOnlyLookups.Count > 0 || ca.LookupEntity.RightOnlyLookups.Count > 0)
+                    {
+                        an.BackColor = Color.Red;
+                        an.ForeColor = Color.White;
+                    }
+
+                    an.Tag = ca;
+                    node.Nodes.Add(an);
+                }
             }
         }
 
@@ -39,7 +50,7 @@ namespace MigrationHelper.Modules.OptionSetModule
             if (node.Tag == null)
                 return;
 
-            var ca = (CrmLookupEntity)node.Tag;
+            var ca = ((CrmLookupAttribute)node.Tag).LookupEntity;
 
             LVCompareResult.Items.Clear();
 
@@ -69,60 +80,59 @@ namespace MigrationHelper.Modules.OptionSetModule
 
         private void loadLookupsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            App.CrmLookupEntities.Clear();
-
-            foreach (var name in Setting.LookupEntitiesValue.Split(','))
-            {
-                var en = new CrmLookupEntity()
-                {
-                    LogicalName = name
-                };
-
-                App.CrmLookupEntities.Add(en);
-
-                var node = new TreeNode(name);
-                TVEntityLookup.Nodes.Add(node);
-            }
-
+            LoadData();
 
             DisplayLookupTree();
         }
 
-        private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadData()
         {
+            Console.WriteLine($"Crm Lookups count: {App.CrmLookupEntities.Count}");
+
+            int count = 0;
+            int count2 = 0;
 
             foreach (var le in App.CrmLookupEntities)
             {
+
+                count++;
+
+                //if (count > 50)
+                //    continue;
+
+                if (count % 20 == 0)
+                    Console.WriteLine($"Count =====> {count} ===> count 2 ====> {count2}");
 
                 try
                 {
                     var qe = new QueryExpression(le.LogicalName);
 
-                    var primaryAttrName = "tri_name";
+                    qe.TopCount = 101;
+                    qe.ColumnSet = new ColumnSet(true);
 
-                    if (le.LogicalName.IndexOf("tri_") < 0)
-                        primaryAttrName = "kc_name";
+                    var lrecords = CrmConnManager.LService.RetrieveMultiple(qe).Entities;
+                    var rrecords = CrmConnManager.RService.RetrieveMultiple(qe).Entities;
 
-                    qe.TopCount = 50;
-                    qe.ColumnSet = new ColumnSet(primaryAttrName);
+                    if (lrecords.Count > 100 || rrecords.Count > 100)
+                        continue;
 
-                    var records = CrmConnManager.LService.RetrieveMultiple(qe).Entities;
-                    foreach (var r in records)
+                    count2++;
+
+                    foreach (var r in lrecords)
                     {
                         le.LLookups.Add(new CrmLookup()
                         {
                             Id = r.Id,
-                            Name = r.GetAttributeValue<string>(primaryAttrName)
+                            Name = r.GetAttributeValue<string>(le.PrimaryNameAttribute)
                         });
 
                     }
-                    records = CrmConnManager.RService.RetrieveMultiple(qe).Entities;
-                    foreach (var r in records)
+                    foreach (var r in rrecords)
                     {
                         le.RLookups.Add(new CrmLookup()
                         {
                             Id = r.Id,
-                            Name = r.GetAttributeValue<string>(primaryAttrName)
+                            Name = r.GetAttributeValue<string>(le.PrimaryNameAttribute)
                         });
 
                     }
@@ -130,7 +140,7 @@ namespace MigrationHelper.Modules.OptionSetModule
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show($"Error: {ex.Message}");
+                    Console.WriteLine($"Error: {ex.Message}");
                 
                 }
 
@@ -141,6 +151,46 @@ namespace MigrationHelper.Modules.OptionSetModule
 
             LookupManager.Compare();
 
+        }
+
+        private void exportToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var csvFile = new CSVFile()
+            {
+                FileName = "LookupsReport.csv"
+            };
+
+            foreach (var le in App.CrmLookupEntities)
+            {
+
+                    var bloc = new CSVBloc()
+                    {
+                        EntityName = le.LogicalName,
+                        AttributeName = ""
+                    };
+
+                    csvFile.Blocs.Add(bloc);
+
+                    
+                    if (le.LeftOnlyLookups.Count > 0 || le.RightOnlyLookups.Count > 0)
+                    {
+
+                        foreach (var o in le.CommonLookups)
+                        {
+                            bloc.AddRow(new string[] { o.Name, o.Name });
+                        }
+                        foreach (var o in le.LeftOnlyLookups)
+                        {
+                            bloc.AddRow(new string[] { o.Name, "" });
+                        }
+                        foreach (var o in le.RightOnlyLookups)
+                        {
+                            bloc.AddRow(new string[] { "", o.Name });
+                        }
+                    }
+            }
+
+            csvFile.Export();
         }
     }
 }

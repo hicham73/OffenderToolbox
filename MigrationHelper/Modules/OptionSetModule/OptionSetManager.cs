@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk.Messages;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MigrationHelper.Manager
 {
@@ -13,12 +15,8 @@ namespace MigrationHelper.Manager
     {
         public static void LoadMeta()
         {
-
-            var fetchXml = CrmHelper.GetOptionFetch();
-
-            var lResult = CrmConnManager.LService.RetrieveMultiple(new FetchExpression(fetchXml)).Entities;
-            var rResult = CrmConnManager.RService.RetrieveMultiple(new FetchExpression(fetchXml)).Entities;
-
+            var lResult = GetStringMapData(CrmConnManager.LService).Entities;
+            var rResult = GetStringMapData(CrmConnManager.RService).Entities;
 
             foreach (var en in lResult)
             {
@@ -27,7 +25,7 @@ namespace MigrationHelper.Manager
                 int optionValue = en.GetAttributeValue<int>("attributevalue");
                 var optionName = en.GetAttributeValue<string>("value");
 
-                var crmEntity = App.MigEntities.Where(x => x.LogicalName == entityName).FirstOrDefault();
+                var crmEntity = App.AllEntities.Where(x => x.LogicalName == entityName).FirstOrDefault();
                 if (crmEntity == null)
                 {
                     crmEntity = new CrmEntity()
@@ -40,6 +38,7 @@ namespace MigrationHelper.Manager
 
 
                 var crmAttribute = crmEntity.OptionAttributes.Where(x => x.Name == attributeName).FirstOrDefault();
+                
                 if (crmAttribute == null)
                 {
                     crmAttribute = new CrmOptionAttribute()
@@ -112,14 +111,44 @@ namespace MigrationHelper.Manager
             }
         }
 
+        public static EntityCollection GetStringMapData(IOrganizationService service)
+        {
+            EntityCollection ec = new EntityCollection();
+
+            EntityCollection rs;
+
+            int pageNum = 1;
+            string pagingCookie = "";
+            do
+            {
+                if (pagingCookie != null && pagingCookie != "")
+                    pagingCookie = pagingCookie.Replace("\"", "'").Replace(">", "&gt;").Replace("<", "&lt;");
+
+                var fetchXml = CrmHelper.GetOptionFetch(pageNum,pagingCookie);
+                rs = service.RetrieveMultiple(new FetchExpression(fetchXml));
+                ec.Entities.AddRange(rs.Entities);
+                pagingCookie = rs.PagingCookie;
+                pageNum++;
+
+
+            }
+            while (rs.MoreRecords && pageNum < 20);
+
+            MessageBox.Show($"Last Page: {pageNum} Total number of records: {ec.Entities.Count}");
+            
+            return ec;
+
+        }
+
         internal static void GetUsage()
         {
-            foreach (var en in App.MigEntities)
+            foreach (var en in App.AllEntities)
             {
                 foreach (var attr in en.OptionAttributes)
                 {
                     if (attr.LeftOnlyOptions.Count > 0)
                     {
+                        
                         foreach (var o in attr.LOptions)
                         {
                             o.Usage = CrmHelper.IsOptionValueUsed(en.LogicalName, attr.Name, o.Value);
@@ -147,34 +176,68 @@ namespace MigrationHelper.Manager
             }
         }
 
-        internal static void ExportToExcel()
+        public static void ExportToExcel()
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"OptionsReport.csv"))
+
+            var visitedAttrs = new List<string>();
+            var csvFile = new CSVFile()
             {
-                foreach (var en in App.MigEntities)
+                FileName = "OptionsReport.csv"
+            };
+
+            foreach (var en in App.MigEntities)
+            {
+                foreach (var attr in en.OptionAttributes)
                 {
-                    file.WriteLine($"{en.LogicalName},,,,");
-                    foreach (var attr in en.OptionAttributes)
+
+                    var visitedBloc = csvFile.Blocs.Where(b => b.AttributeName == attr.Name).FirstOrDefault();
+
+                    if (visitedBloc != null)
+                    { 
+                        visitedBloc.EntityName += "," + en.LogicalName;
+                        continue;
+                    }
+
+                    var bloc = new CSVBloc()
                     {
-                        if (attr.LeftOnlyOptions.Count > 0 || attr.RightOnlyOptions.Count > 0)
+                        EntityName = en.LogicalName,
+                        AttributeName = attr.Name
+                    };
+
+                    csvFile.Blocs.Add(bloc);
+
+                    if (attr.LeftOnlyOptions.Count > 0 || attr.RightOnlyOptions.Count > 0)
+                    {
+
+                        if (attr.CommonOptions.Count == 2 && (attr.CommonOptions[0].Name == "Yes" || attr.CommonOptions[0].Name == "No"))
+                            continue;
+
+                        if (attr.Name == "statecode" || attr.Name == "statuscode")
+                            continue;
+
+                        foreach (var o in attr.CommonOptions)
                         {
-                            file.WriteLine($"{attr.Name},,,,");
-                            foreach (var o in attr.CommonOptions)
-                            {
-                                file.WriteLine($"{o.Value},{o.Name},{o.Value},{o.Name},");
-                            }
-                            foreach (var o in attr.LeftOnlyOptions)
-                            {
-                                file.WriteLine($"{o.Value},{o.Name},,,");
-                            }
-                            foreach (var o in attr.RightOnlyOptions)
-                            {
-                                file.WriteLine($",,{o.Value},{o.Name},");
-                            }
+                            bloc.AddRow(new string[] { o.Value.ToString(), o.Name, o.Value.ToString(), o.Name, o.Usage?"Yes":"No", o.AllUsage?"Yes":"No", o.AllUsageEntities });
+                        }
+                        foreach (var o in attr.LeftOnlyOptions)
+                        {
+                            bloc.AddRow(new string[] { o.Value.ToString(), o.Name, "", "", o.Usage ? "Yes" : "No", o.AllUsage ? "Yes" : "No", o.AllUsageEntities });
+                        }
+                        foreach (var o in attr.RightOnlyOptions)
+                        {
+                            bloc.AddRow(new string[] { "", "", o.Value.ToString(), o.Name, o.Usage ? "Yes" : "No", o.AllUsage ? "Yes" : "No", o.AllUsageEntities });
                         }
                     }
+
                 }
             }
+
+            csvFile.Export();
+
+
+
+
+
         }
 
         internal static void Compare()
@@ -186,28 +249,6 @@ namespace MigrationHelper.Manager
                     ca.CommonOptions = ca.LOptions.Where(lo => ca.ROptions.Where(ro => ro.Value == lo.Value && ro.Name == lo.Name).Any()).ToList();
                     ca.LeftOnlyOptions = ca.LOptions.Where(lo => !ca.ROptions.Where(ro => ro.Value == lo.Value && ro.Name == lo.Name).Any()).ToList();
                     ca.RightOnlyOptions = ca.ROptions.Where(ro => !ca.LOptions.Where(lo => lo.Value == ro.Value && lo.Name == ro.Name).Any()).ToList();
-                }
-            }
-
-        }
-
-        static void LoadLookups()
-        {
-            var entityRequest = new RetrieveAllEntitiesRequest
-            {
-                RetrieveAsIfPublished = true,
-                EntityFilters = EntityFilters.Entity | EntityFilters.Attributes | EntityFilters.Relationships
-            };
-
-            var entityResponse = (RetrieveAllEntitiesResponse)CrmConnManager.LService.Execute(entityRequest);
-
-            Console.WriteLine("====== Searching For Targetless Lookups ");
-            foreach (var ent in entityResponse.EntityMetadata)
-            {
-                foreach (var field in ent.Attributes
-                    .OfType<LookupAttributeMetadata>()
-                    .Where(lookup => !lookup.Targets.Any()))
-                {
                 }
             }
 

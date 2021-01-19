@@ -36,29 +36,29 @@
             this.formulaControl1 = new MigrationHelper.FormulaControl();
             this.PageOptionSet = new System.Windows.Forms.TabPage();
             this.optionSetControl1 = new MigrationHelper.OptionSetControl();
+            this.PageLookup = new System.Windows.Forms.TabPage();
+            this.lookupControl1 = new MigrationHelper.Modules.OptionSetModule.LookupControl();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.BtnConnect = new System.Windows.Forms.ToolStripButton();
             this.BtnSettings = new System.Windows.Forms.ToolStripButton();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.lookupControl1 = new MigrationHelper.Modules.OptionSetModule.LookupControl();
             this.TabControlMain.SuspendLayout();
             this.PageSetting.SuspendLayout();
             this.PageFormula.SuspendLayout();
             this.PageOptionSet.SuspendLayout();
+            this.PageLookup.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
             // 
             this.TabControlMain.Controls.Add(this.PageSetting);
-            this.TabControlMain.Controls.Add(this.PageFormula);
             this.TabControlMain.Controls.Add(this.PageOptionSet);
-            this.TabControlMain.Controls.Add(this.tabPage1);
+            this.TabControlMain.Controls.Add(this.PageLookup);
+            this.TabControlMain.Controls.Add(this.PageFormula);
             this.TabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControlMain.Location = new System.Drawing.Point(0, 0);
             this.TabControlMain.Name = "TabControlMain";
@@ -122,6 +122,25 @@
             this.optionSetControl1.Size = new System.Drawing.Size(1200, 560);
             this.optionSetControl1.TabIndex = 0;
             // 
+            // PageLookup
+            // 
+            this.PageLookup.Controls.Add(this.lookupControl1);
+            this.PageLookup.Location = new System.Drawing.Point(4, 22);
+            this.PageLookup.Name = "PageLookup";
+            this.PageLookup.Padding = new System.Windows.Forms.Padding(3);
+            this.PageLookup.Size = new System.Drawing.Size(1206, 566);
+            this.PageLookup.TabIndex = 4;
+            this.PageLookup.Text = "Lookups";
+            this.PageLookup.UseVisualStyleBackColor = true;
+            // 
+            // lookupControl1
+            // 
+            this.lookupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lookupControl1.Location = new System.Drawing.Point(3, 3);
+            this.lookupControl1.Name = "lookupControl1";
+            this.lookupControl1.Size = new System.Drawing.Size(1200, 560);
+            this.lookupControl1.TabIndex = 0;
+            // 
             // toolStripContainer1
             // 
             this.toolStripContainer1.BottomToolStripPanelVisible = false;
@@ -173,25 +192,6 @@
             this.BtnSettings.ToolTipText = "Settings";
             this.BtnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.lookupControl1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1206, 566);
-            this.tabPage1.TabIndex = 4;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // lookupControl1
-            // 
-            this.lookupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lookupControl1.Location = new System.Drawing.Point(3, 3);
-            this.lookupControl1.Name = "lookupControl1";
-            this.lookupControl1.Size = new System.Drawing.Size(1200, 560);
-            this.lookupControl1.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,6 +204,7 @@
             this.PageSetting.ResumeLayout(false);
             this.PageFormula.ResumeLayout(false);
             this.PageOptionSet.ResumeLayout(false);
+            this.PageLookup.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
@@ -211,7 +212,6 @@
             this.toolStripContainer1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -228,7 +228,7 @@
         private FormulaControl formulaControl1;
         private System.Windows.Forms.TabPage PageSetting;
         private SettingControl settingControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage PageLookup;
         private Modules.OptionSetModule.LookupControl lookupControl1;
     }
 }
