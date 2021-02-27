@@ -1,6 +1,6 @@
-﻿namespace MigrationHelper
+﻿namespace MigrationHelper.Modules.Option
 {
-    partial class OptionSetControl
+    partial class MyControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionSetControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyControl));
             this.scOptionModule = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.BtnLoadOptions = new System.Windows.Forms.ToolStripButton();

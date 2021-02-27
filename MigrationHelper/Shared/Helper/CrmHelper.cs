@@ -1,4 +1,6 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,45 +49,13 @@ namespace MigrationHelper
   </entity>
 </fetch>";
 
-            //var entityCodes = Setting.OptionEntitiesValue.Replace(" ", "").Split(',');
 
-            //var entityCodes = App.MigEntities.Select(x => x.Code).ToArray<int>();
-
-            //var values = string.Empty;
-            //foreach (var code in entityCodes)
-            //{
-            //    values += $"<value>{code}</value>";
-            //}
-            //var fetchXml = $@"
-            //        <fetch>
-            //          <entity name='stringmap'>
-            //            <attribute name='attributevalue' />
-            //            <attribute name='attributename' />
-            //            <attribute name='value' />
-            //            <attribute name='objecttypecodename' />
-            //            <attribute name='displayorder' />
-            //            <attribute name='versionnumber' />
-            //            <attribute name='objecttypecode' />
-            //            <attribute name='langid' />
-            //            <attribute name='organizationid' />
-            //            <attribute name='stringmapid' />
-            //            <filter>
-            //              <condition attribute='objecttypecode' operator='in'>
-            //                {values}
-            //              </condition>
-            //              <condition attribute='attributename' operator='not-in'>
-            //                <value>statecode</value>
-            //                <value>statuscode</value>
-            //              </condition>
-            //            </filter>
-            //          </entity>
-            //        </fetch>";
 
             return fetchXml;
 
         }
 
-        public static string GetFormulaFetch()
+        public static string GetFormulaFetchForMigrationEntities()
         {
             var values = string.Empty;
             foreach (var en in App.MigEntities)
@@ -93,14 +63,10 @@ namespace MigrationHelper
                 values += $"<value>{en.LogicalName}</value>";
             }
 
-            var fetchData = new
-            {
-                north52_sourceentityname = "account",
-                north52_sourceentityname2 = "tri_booking"
-            };
             var fetchXml = $@"
                 <fetch top='5000'>
                   <entity name='north52_formula'>
+                    <attribute name='north52_formulaid' />
                     <attribute name='statuscode' />
                     <attribute name='north52_targetentityname' />
                     <attribute name='north52_sourceentityname' />
@@ -114,6 +80,11 @@ namespace MigrationHelper
                       <condition attribute='north52_sourceentityname' operator='in'>
                             {values}
                       </condition>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      <condition attribute='north52_formulatype' operator='not-in' >
+                        <value>217890014</value>
+                        <value>217890015</value>
+                      </condition>
                     </filter>
                   </entity>
                 </fetch>";
@@ -122,6 +93,39 @@ namespace MigrationHelper
 
         }
 
+        public static Reference GetReference(Entity e, string attrName)
+        {
+            Reference r = null;
+            EntityReference er = null;
+
+            if (attrName.IndexOf(".") > -1)
+                er = e.GetAttributeValue<AliasedValue>(attrName)?.Value as EntityReference;
+            else
+                er = e.GetAttributeValue<EntityReference>(attrName);
+
+            if (er != null)
+                r = new Reference() { Id = er.Id, Name = er.Name };
+
+            return r;
+        }
+
+        public static Option GetOption(Entity e, string attrName)
+        {
+            Option opt = null;
+
+            if (e.FormattedValues.Contains(attrName))
+            {
+                return new Option()
+                {
+                    Value = e.GetAttributeValue<OptionSetValue>(attrName)?.Value,
+                    Name = e.FormattedValues[attrName]
+
+                };
+
+            }
+
+            return opt;
+        }
 
         public static bool IsOptionValueUsed(string entityName, string attributeName, int optionValue)
         {
@@ -145,5 +149,58 @@ namespace MigrationHelper
             
             return false;
         }
+
+        public static void DeactivateRecord(string entityName, Guid recordId, IOrganizationService organizationService)
+        {
+                //StateCode = 1 and StatusCode = 2 for deactivating Account or Contact
+                SetStateRequest setStateRequest = new SetStateRequest()
+                {
+                    EntityMoniker = new EntityReference
+                    {
+                        Id = recordId,
+                        LogicalName = entityName,
+                    },
+                    State = new OptionSetValue(1),
+                    Status = new OptionSetValue(2)
+                };
+                organizationService.Execute(setStateRequest);
+        }
+
+        //Activate a record
+        public static void ActivateRecord(string entityName, Guid recordId, IOrganizationService organizationService)
+        {
+            var cols = new ColumnSet(new[] { "statecode", "statuscode" });
+
+            //Check if it is Inactive or not
+            var entity = organizationService.Retrieve(entityName, recordId, cols);
+
+            if (entity != null && entity.GetAttributeValue<OptionSetValue>("statecode").Value == 1)
+            {
+                //StateCode = 0 and StatusCode = 1 for activating Account or Contact
+                SetStateRequest setStateRequest = new SetStateRequest()
+                {
+                    EntityMoniker = new EntityReference
+                    {
+                        Id = recordId,
+                        LogicalName = entityName,
+                    },
+                    State = new OptionSetValue(0),
+                    Status = new OptionSetValue(1)
+                };
+                organizationService.Execute(setStateRequest);
+            }
+        }
+    }
+
+    public class Reference
+    {
+        public Guid? Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Option
+    {
+        public int? Value { get; set; }
+        public string Name { get; set; }
     }
 }

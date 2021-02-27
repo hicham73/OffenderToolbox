@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MigrationHelper.Modules.OptionSetModule
+namespace MigrationHelper.Modules.Lookup
 {
-    public class LookupManager
+    public class Manager
     {
 
         internal static void Compare()

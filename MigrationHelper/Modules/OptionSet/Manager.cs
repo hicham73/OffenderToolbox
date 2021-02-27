@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MigrationHelper.Manager
+namespace MigrationHelper.Modules.Option
 {
     public static class OptionSetManager
     {
@@ -233,10 +233,6 @@ namespace MigrationHelper.Manager
             }
 
             csvFile.Export();
-
-
-
-
 
         }
 

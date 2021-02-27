@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using MigrationHelper.Modules.Formula;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,13 @@ namespace MigrationHelper
 
     }
 
+    public class CrmFormulaEntity: CrmEntity 
+    {
+        public List<FormulaDiffRecord> FormulaDiffRecords = new List<FormulaDiffRecord>();
+
+        public bool IsDifferent { get; set; } = false;
+    }
+
     public class CrmLookupEntity : CrmEntity
     {
         public List<CrmLookup> LLookups = new List<CrmLookup>();
@@ -29,6 +37,7 @@ namespace MigrationHelper
 
         public string PrimaryNameAttribute { get; internal set; }
         public bool Added { get; internal set; }
+
     }
 
     public class CrmAttribute
@@ -76,15 +85,15 @@ namespace MigrationHelper
         public string Name { get; set; }
         public string SourceEntityName { get; set; }
         public string TargetEntityName { get; set; }
-        public ValueName StatusCode { get; set; }
-        public ValueName StateCode { get; set; }
+        public Option StatusCode { get; set; }
+        public Option StateCode { get; set; }
         public string TargetEntityProperty { get; set; }
-        public ValueName Type { get; set; }
+        public string TargetEntityproperty { get; internal set; }
+        public Option Type { get; set; }
+        public Guid ID { get; internal set; }
+        public string SourceEntityProperty { get; internal set; }
+        public string Description { get; internal set; }
     }
 
-    public struct ValueName
-    {
-        public int Value { get; set; }
-        public string Name { get; set; }
-    }
+
 }

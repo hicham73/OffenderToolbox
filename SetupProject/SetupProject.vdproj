@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_3185E01539BB775604EF9AB607BF5C9B"
+        "MsmKey" = "8:_3216D5B3E710D6EC6E731CCE3FA1E6DA"
         "OwnerKey" = "8:_CEE18725D7194C4C89AADA9BFBC64F40"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3216D5B3E710D6EC6E731CCE3FA1E6DA"
+        "MsmKey" = "8:_4DEDC8E3CBB9DC0D460609E685D9B329"
         "OwnerKey" = "8:_CEE18725D7194C4C89AADA9BFBC64F40"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -57,44 +57,32 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_80412B96035646AAD94337978C449BED"
-        "OwnerKey" = "8:_88C880ED58F888E9C51FF8DCD7A055A7"
+        "MsmKey" = "8:_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
+        "OwnerKey" = "8:_FE1BE382D0ABA5ACCA0C5D212735B338"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_80412B96035646AAD94337978C449BED"
+        "MsmKey" = "8:_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
         "OwnerKey" = "8:_F121AA709347D77E457A0DA9A6BE5F3E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_80412B96035646AAD94337978C449BED"
+        "MsmKey" = "8:_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
         "OwnerKey" = "8:_3216D5B3E710D6EC6E731CCE3FA1E6DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_80412B96035646AAD94337978C449BED"
+        "MsmKey" = "8:_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
         "OwnerKey" = "8:_587169F9E556F45929FC7DF9A0DC55DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_80412B96035646AAD94337978C449BED"
+        "MsmKey" = "8:_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
         "OwnerKey" = "8:_CEE18725D7194C4C89AADA9BFBC64F40"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_88C880ED58F888E9C51FF8DCD7A055A7"
-        "OwnerKey" = "8:_CEE18725D7194C4C89AADA9BFBC64F40"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_88C880ED58F888E9C51FF8DCD7A055A7"
-        "OwnerKey" = "8:_F121AA709347D77E457A0DA9A6BE5F3E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -129,8 +117,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3185E01539BB775604EF9AB607BF5C9B"
+        "MsmKey" = "8:_FE1BE382D0ABA5ACCA0C5D212735B338"
+        "OwnerKey" = "8:_CEE18725D7194C4C89AADA9BFBC64F40"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FE1BE382D0ABA5ACCA0C5D212735B338"
+        "OwnerKey" = "8:_F121AA709347D77E457A0DA9A6BE5F3E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -178,13 +172,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_88C880ED58F888E9C51FF8DCD7A055A7"
+        "OwnerKey" = "8:_FE1BE382D0ABA5ACCA0C5D212735B338"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_80412B96035646AAD94337978C449BED"
+        "OwnerKey" = "8:_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4DEDC8E3CBB9DC0D460609E685D9B329"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -205,6 +205,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -221,12 +229,34 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_89D7156547CA49788FD9DF41F33D720C"
+            {
+            "Name" = "8:Primary output from MigrationHelper (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_CEE18725D7194C4C89AADA9BFBC64F40"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_CDF90715_593E_442C_9744_FEBB655B2F13"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -250,20 +280,20 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3185E01539BB775604EF9AB607BF5C9B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3216D5B3E710D6EC6E731CCE3FA1E6DA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Xrm.Sdk.Workflow, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3185E01539BB775604EF9AB607BF5C9B"
+                    "_3216D5B3E710D6EC6E731CCE3FA1E6DA"
                     {
-                    "Name" = "8:System.Net.Http.dll"
+                    "Name" = "8:Microsoft.Xrm.Sdk.Workflow.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Net.Http.dll"
+            "SourcePath" = "8:Microsoft.Xrm.Sdk.Workflow.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2B8950C190B04C74A17CA1E03673834C"
@@ -281,20 +311,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3216D5B3E710D6EC6E731CCE3FA1E6DA"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4DEDC8E3CBB9DC0D460609E685D9B329"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Xrm.Sdk.Workflow, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_3216D5B3E710D6EC6E731CCE3FA1E6DA"
+                    "_4DEDC8E3CBB9DC0D460609E685D9B329"
                     {
-                    "Name" = "8:Microsoft.Xrm.Sdk.Workflow.dll"
+                    "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Microsoft.Xrm.Sdk.Workflow.dll"
+            "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2B8950C190B04C74A17CA1E03673834C"
@@ -405,51 +435,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_80412B96035646AAD94337978C449BED"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_80412B96035646AAD94337978C449BED"
+                    "_B7A0FD3862DB6C8F1F0DA6240CDAAF7A"
                     {
                     "Name" = "8:Microsoft.Xrm.Sdk.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:Microsoft.Xrm.Sdk.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2B8950C190B04C74A17CA1E03673834C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_88C880ED58F888E9C51FF8DCD7A055A7"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_88C880ED58F888E9C51FF8DCD7A055A7"
-                    {
-                    "Name" = "8:Microsoft.Crm.Sdk.Proxy.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.Crm.Sdk.Proxy.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2B8950C190B04C74A17CA1E03673834C"
@@ -512,6 +511,37 @@
                     }
                 }
             "SourcePath" = "8:Microsoft.Xrm.Tooling.Connector.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2B8950C190B04C74A17CA1E03673834C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FE1BE382D0ABA5ACCA0C5D212735B338"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FE1BE382D0ABA5ACCA0C5D212735B338"
+                    {
+                    "Name" = "8:Microsoft.Crm.Sdk.Proxy.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Crm.Sdk.Proxy.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2B8950C190B04C74A17CA1E03673834C"
@@ -1121,7 +1151,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CEE18725D7194C4C89AADA9BFBC64F40"
             {
-            "SourcePath" = "8:..\\MigrationHelper\\obj\\Release\\MigrationHelper.exe"
+            "SourcePath" = "8:..\\MigrationHelper\\obj\\Debug\\MigrationHelper.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2B8950C190B04C74A17CA1E03673834C"

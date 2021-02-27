@@ -1,6 +1,6 @@
-﻿namespace MigrationHelper
+﻿namespace MigrationHelper.Modules.Setting
 {
-    partial class SettingControl
+    partial class MyControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.LVMetaEntities = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LVOptionEntities = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LVLookupEntities = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.BtnAddOptionEntity = new System.Windows.Forms.Button();
             this.BtnRemoveOptionEntity = new System.Windows.Forms.Button();
             this.BtnRemoveLookupEntity = new System.Windows.Forms.Button();
@@ -38,9 +41,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.BtnLoadEntities = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // LVMetaEntities
@@ -52,10 +52,15 @@
             this.LVMetaEntities.HideSelection = false;
             this.LVMetaEntities.Location = new System.Drawing.Point(20, 69);
             this.LVMetaEntities.Name = "LVMetaEntities";
-            this.LVMetaEntities.Size = new System.Drawing.Size(284, 517);
+            this.LVMetaEntities.Size = new System.Drawing.Size(284, 285);
             this.LVMetaEntities.TabIndex = 0;
             this.LVMetaEntities.UseCompatibleStateImageBehavior = false;
             this.LVMetaEntities.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Meta Entities";
+            this.columnHeader1.Width = 200;
             // 
             // LVOptionEntities
             // 
@@ -65,10 +70,14 @@
             this.LVOptionEntities.HideSelection = false;
             this.LVOptionEntities.Location = new System.Drawing.Point(328, 69);
             this.LVOptionEntities.Name = "LVOptionEntities";
-            this.LVOptionEntities.Size = new System.Drawing.Size(265, 517);
+            this.LVOptionEntities.Size = new System.Drawing.Size(265, 285);
             this.LVOptionEntities.TabIndex = 1;
             this.LVOptionEntities.UseCompatibleStateImageBehavior = false;
             this.LVOptionEntities.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Width = 259;
             // 
             // LVLookupEntities
             // 
@@ -78,10 +87,14 @@
             this.LVLookupEntities.HideSelection = false;
             this.LVLookupEntities.Location = new System.Drawing.Point(619, 70);
             this.LVLookupEntities.Name = "LVLookupEntities";
-            this.LVLookupEntities.Size = new System.Drawing.Size(258, 517);
+            this.LVLookupEntities.Size = new System.Drawing.Size(258, 284);
             this.LVLookupEntities.TabIndex = 2;
             this.LVLookupEntities.UseCompatibleStateImageBehavior = false;
             this.LVLookupEntities.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 246;
             // 
             // BtnAddOptionEntity
             // 
@@ -151,19 +164,6 @@
             this.BtnLoadEntities.UseVisualStyleBackColor = true;
             this.BtnLoadEntities.Click += new System.EventHandler(this.BtnLoadEntities_Click);
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Meta Entities";
-            this.columnHeader1.Width = 200;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 246;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Width = 259;
-            // 
             // SettingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,7 +179,7 @@
             this.Controls.Add(this.LVOptionEntities);
             this.Controls.Add(this.LVMetaEntities);
             this.Name = "SettingControl";
-            this.Size = new System.Drawing.Size(997, 680);
+            this.Size = new System.Drawing.Size(1097, 688);
             this.ResumeLayout(false);
 
         }

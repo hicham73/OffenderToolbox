@@ -9,18 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace MigrationHelper.Modules.OptionSetModule
+namespace MigrationHelper.Modules.Lookup
 {
-    public partial class LookupControl : UserControl
+    public partial class MyControl : UserControl
     {
-        public LookupControl()
+        public MyControl()
         {
             InitializeComponent();
         }
 
         private void DisplayLookupTree()
         {
-
             TVEntityLookup.Nodes.Clear();
 
             foreach (var ce in App.MigEntities)
@@ -143,14 +142,8 @@ namespace MigrationHelper.Modules.OptionSetModule
                     Console.WriteLine($"Error: {ex.Message}");
                 
                 }
-
-
-
-
             }
-
-            LookupManager.Compare();
-
+            Manager.Compare();
         }
 
         private void exportToExcelToolStripMenuItem_Click(object sender, EventArgs e)

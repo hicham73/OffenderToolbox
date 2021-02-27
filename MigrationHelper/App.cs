@@ -2,6 +2,7 @@
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,24 @@ namespace MigrationHelper
 
         public static void InitApp()
         {
-            Setting.Load();
+            Shared.Setting.Load();
 
             CrmConnManager.Connect();
 
-            LoadAllEntities();
+        }
+
+
+        public static void OpenUrl(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                url = url.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+            }
         }
 
         public static void LoadAllEntities() {

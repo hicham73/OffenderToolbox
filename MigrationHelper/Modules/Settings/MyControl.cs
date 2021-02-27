@@ -10,11 +10,11 @@ using System.Windows.Forms;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 
-namespace MigrationHelper
+namespace MigrationHelper.Modules.Setting
 {
-    public partial class SettingControl : UserControl
+    public partial class MyControl : UserControl
     {
-        public SettingControl()
+        public MyControl()
         {
             InitializeComponent();
 

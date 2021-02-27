@@ -1,6 +1,6 @@
-﻿namespace MigrationHelper.Modules.OptionSetModule
+﻿namespace MigrationHelper.Modules.Lookup
 {
-    partial class LookupControl
+    partial class MyControl
     {
         /// <summary> 
         /// Required designer variable.

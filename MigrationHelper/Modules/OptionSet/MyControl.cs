@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MigrationHelper.Manager;
 
-namespace MigrationHelper
+namespace MigrationHelper.Modules.Option
 {
-    public partial class OptionSetControl : UserControl
+    public partial class MyControl : UserControl
     {
-        public OptionSetControl()
+        public MyControl()
         {
             InitializeComponent();
         }

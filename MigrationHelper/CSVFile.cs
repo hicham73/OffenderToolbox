@@ -22,14 +22,17 @@ namespace MigrationHelper
                 {
                     if (bloc.Rows.Count > 0)
                     {
-                        var ens = bloc.EntityName.Split(',');
-                        foreach (var en in ens)
-                        { 
-                            file.WriteLine($"{en},{bloc.AttributeName},,");
-                        }
-                        foreach (var row in bloc.Rows)
+                        var ens = bloc.EntityName?.Split(',');
+                        if (ens != null)
                         {
-                            file.WriteLine(row.ToString());
+                            foreach (var en in ens)
+                            { 
+                                file.WriteLine($"{en},{bloc.AttributeName},,");
+                            }
+                            foreach (var row in bloc.Rows)
+                            {
+                                file.WriteLine(row.ToString());
+                            }
                         }
                     }
                 }
