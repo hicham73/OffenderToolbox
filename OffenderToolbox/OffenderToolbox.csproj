@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D6F51C05-479F-44AE-AC38-A01B5031C9CC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MigrationHelper</RootNamespace>
-    <AssemblyName>MigrationHelper</AssemblyName>
+    <RootNamespace>OffenderToolbox</RootNamespace>
+    <AssemblyName>OffenderToolbox</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -1,17 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1231
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationHelper", "MigrationHelper\MigrationHelper.csproj", "{D6F51C05-479F-44AE-AC38-A01B5031C9CC}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupProject", "SetupProject\SetupProject.vdproj", "{DF98F4BE-112F-4376-811C-36E957F35F38}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeMigration", "EmployeeMigration\EmployeeMigration.csproj", "{0EC87C33-C248-4B36-AA1B-0507D1B018DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{9B15674C-8ACA-4F9F-B857-F6101EE95B49}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaProcessHelper", "DeltaProcessHelper\DeltaProcessHelper.csproj", "{515AFD31-6928-4D26-BBB3-EB74433EDF8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffenderToolbox", "OffenderToolbox\OffenderToolbox.csproj", "{D6F51C05-479F-44AE-AC38-A01B5031C9CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF98F4BE-112F-4376-811C-36E957F35F38}.Debug|Any CPU.ActiveCfg = Debug
-		{DF98F4BE-112F-4376-811C-36E957F35F38}.Release|Any CPU.ActiveCfg = Release
 		{0EC87C33-C248-4B36-AA1B-0507D1B018DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0EC87C33-C248-4B36-AA1B-0507D1B018DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EC87C33-C248-4B36-AA1B-0507D1B018DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,6 +29,10 @@ Global
 		{515AFD31-6928-4D26-BBB3-EB74433EDF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{515AFD31-6928-4D26-BBB3-EB74433EDF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{515AFD31-6928-4D26-BBB3-EB74433EDF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6F51C05-479F-44AE-AC38-A01B5031C9CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

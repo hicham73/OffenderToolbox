@@ -40,17 +40,19 @@
             this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblRightOrgName = new System.Windows.Forms.Label();
             this.txtLeftFormula = new System.Windows.Forms.RichTextBox();
             this.txtRightFormula = new System.Windows.Forms.RichTextBox();
+            this.lblLeftOrgName = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.BtnLoadFormulas = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnOpenInBrowser = new System.Windows.Forms.ToolStripMenuItem();
             this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
+            this.BtnDeploy = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.lblLeftOrgName = new System.Windows.Forms.Label();
-            this.lblRightOrgName = new System.Windows.Forms.Label();
+            this.BtnDeactivateFormulas = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -126,7 +128,6 @@
             this.dataGridFormula.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridFormula.Location = new System.Drawing.Point(0, 0);
             this.dataGridFormula.Name = "dataGridFormula";
-            this.dataGridFormula.ReadOnly = true;
             this.dataGridFormula.Size = new System.Drawing.Size(853, 484);
             this.dataGridFormula.TabIndex = 0;
             this.dataGridFormula.SelectionChanged += new System.EventHandler(this.dataGridFormula_SelectionChanged);
@@ -135,7 +136,6 @@
             // 
             this.FormulaCheckbox.HeaderText = "S";
             this.FormulaCheckbox.Name = "FormulaCheckbox";
-            this.FormulaCheckbox.ReadOnly = true;
             this.FormulaCheckbox.Width = 25;
             // 
             // FormulaName
@@ -196,6 +196,16 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(853, 206);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // lblRightOrgName
+            // 
+            this.lblRightOrgName.AutoSize = true;
+            this.lblRightOrgName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRightOrgName.Location = new System.Drawing.Point(429, 186);
+            this.lblRightOrgName.Name = "lblRightOrgName";
+            this.lblRightOrgName.Size = new System.Drawing.Size(421, 20);
+            this.lblRightOrgName.TabIndex = 3;
+            this.lblRightOrgName.Text = "label1";
+            // 
             // txtLeftFormula
             // 
             this.txtLeftFormula.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -214,6 +224,16 @@
             this.txtRightFormula.TabIndex = 1;
             this.txtRightFormula.Text = "";
             // 
+            // lblLeftOrgName
+            // 
+            this.lblLeftOrgName.AutoSize = true;
+            this.lblLeftOrgName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLeftOrgName.Location = new System.Drawing.Point(3, 186);
+            this.lblLeftOrgName.Name = "lblLeftOrgName";
+            this.lblLeftOrgName.Size = new System.Drawing.Size(420, 20);
+            this.lblLeftOrgName.TabIndex = 2;
+            this.lblLeftOrgName.Text = "label1";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -222,7 +242,9 @@
             this.refreshToolStripMenuItem,
             this.exportCSVToolStripMenuItem,
             this.BtnOpenInBrowser,
-            this.txtSearch});
+            this.txtSearch,
+            this.BtnDeploy,
+            this.BtnDeactivateFormulas});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1041, 27);
@@ -264,6 +286,13 @@
             this.txtSearch.Size = new System.Drawing.Size(300, 23);
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
+            // BtnDeploy
+            // 
+            this.BtnDeploy.Name = "BtnDeploy";
+            this.BtnDeploy.Size = new System.Drawing.Size(56, 23);
+            this.BtnDeploy.Text = "Deploy";
+            this.BtnDeploy.Click += new System.EventHandler(this.BtnDeploy_Click);
+            // 
             // toolStripContainer1
             // 
             this.toolStripContainer1.BottomToolStripPanelVisible = false;
@@ -285,32 +314,19 @@
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
             // 
-            // lblLeftOrgName
+            // BtnDeactivateFormulas
             // 
-            this.lblLeftOrgName.AutoSize = true;
-            this.lblLeftOrgName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblLeftOrgName.Location = new System.Drawing.Point(3, 186);
-            this.lblLeftOrgName.Name = "lblLeftOrgName";
-            this.lblLeftOrgName.Size = new System.Drawing.Size(420, 20);
-            this.lblLeftOrgName.TabIndex = 2;
-            this.lblLeftOrgName.Text = "label1";
+            this.BtnDeactivateFormulas.Name = "BtnDeactivateFormulas";
+            this.BtnDeactivateFormulas.Size = new System.Drawing.Size(126, 23);
+            this.BtnDeactivateFormulas.Text = "Deactivate Formulas";
+            this.BtnDeactivateFormulas.Click += new System.EventHandler(this.BtnDeactivateFormulas_Click);
             // 
-            // lblRightOrgName
-            // 
-            this.lblRightOrgName.AutoSize = true;
-            this.lblRightOrgName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRightOrgName.Location = new System.Drawing.Point(429, 186);
-            this.lblRightOrgName.Name = "lblRightOrgName";
-            this.lblRightOrgName.Size = new System.Drawing.Size(421, 20);
-            this.lblRightOrgName.TabIndex = 3;
-            this.lblRightOrgName.Text = "label1";
-            // 
-            // FormulaControl
+            // MyControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStripContainer1);
-            this.Name = "FormulaControl";
+            this.Name = "MyControl";
             this.Size = new System.Drawing.Size(1041, 721);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -344,13 +360,6 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStripMenuItem exportCSVToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn FormulaCheckbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FormulaName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TargetEntity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TargetProperty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn State;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.RichTextBox txtLeftFormula;
@@ -359,5 +368,14 @@
         private System.Windows.Forms.ToolStripTextBox txtSearch;
         private System.Windows.Forms.Label lblRightOrgName;
         private System.Windows.Forms.Label lblLeftOrgName;
+        private System.Windows.Forms.ToolStripMenuItem BtnDeploy;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn FormulaCheckbox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FormulaName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TargetEntity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TargetProperty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn State;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.ToolStripMenuItem BtnDeactivateFormulas;
     }
 }

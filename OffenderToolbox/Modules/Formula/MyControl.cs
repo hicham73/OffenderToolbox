@@ -148,7 +148,7 @@ namespace MigrationHelper.Modules.Formula
             if (SelectedDiffRecord != null)
             {
                 var hostname = Shared.Setting.ConnString1.Split(';')[0].Split('=')[1];
-                var id = SelectedDiffRecord.LFormula?.ID;
+                var id = SelectedDiffRecord.LFormula?.Id;
 
                 if (id != null)
                 {
@@ -157,7 +157,7 @@ namespace MigrationHelper.Modules.Formula
                 }
 
                 hostname = Shared.Setting.ConnString2.Split(';')[0].Split('=')[1];
-                id = SelectedDiffRecord.RFormula?.ID;
+                id = SelectedDiffRecord.RFormula?.Id;
                 if (id != null)
                 {
                     var url1 = $"{hostname}/main.aspx?pagetype=entityrecord&etn=north52_formula&id={id}";
@@ -179,6 +179,40 @@ namespace MigrationHelper.Modules.Formula
                 if (!string.IsNullOrEmpty(txtSearch.Text))
                     DisplayFormulasFromSearch(txtSearch.Text);
             }
+        }
+
+        private void BtnDeploy_Click(object sender, EventArgs e)
+        {
+            foreach(DataGridViewRow row in dataGridFormula.Rows)
+            {
+                if (row.Tag != null) {
+                    var record = (FormulaDiffRecord)row.Tag;
+                    if ((bool)row.Cells[0].Value && record.LFormula != null)
+                    {
+                        mgr.DeployFormula(record.LFormula.Id, record.RFormula != null);
+                    }
+                }
+            }
+        }
+
+        private void BtnDeactivateFormulas_Click(object sender, EventArgs e)
+        {
+            var sb = new StringBuilder();
+            int count = 0;
+            foreach (var f in mgr.FormulaDiffRecords) 
+            {
+                if (f.RFormula != null)
+                {
+                    var ff = f.RFormula;
+                    if (!ff.Type.Name.StartsWith("Client") && ff.StateCode.Value == 0)
+                    {
+                        CrmHelper.DeactivateRecord("north52_formula", ff.Id, CrmConnManager.RService);
+                    }
+                }
+
+            }
+
+            MessageBox.Show(sb.ToString());
         }
     }
 }

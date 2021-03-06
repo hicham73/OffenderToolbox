@@ -90,7 +90,7 @@ namespace MigrationHelper
         public string TargetEntityProperty { get; set; }
         public string TargetEntityproperty { get; internal set; }
         public Option Type { get; set; }
-        public Guid ID { get; internal set; }
+        public Guid Id { get; internal set; }
         public string SourceEntityProperty { get; internal set; }
         public string Description { get; internal set; }
     }

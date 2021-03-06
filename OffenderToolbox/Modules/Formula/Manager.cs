@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MigrationHelper.Modules.Formula
 {
@@ -19,6 +20,9 @@ namespace MigrationHelper.Modules.Formula
             var qe = new QueryExpression("north52_formula");
             //qe.TopCount = 1000;
             qe.ColumnSet = new ColumnSet(true);
+
+            FormulaDiffRecords.Clear();
+            FormulaEntities.Clear();
 
             var lresult = CrmConnManager.LService.RetrieveMultiple(qe).Entities;
             ProcessResult(lresult, SourceTypes.Left);
@@ -65,7 +69,7 @@ namespace MigrationHelper.Modules.Formula
 
                 var formula = new CrmFormula()
                 {
-                    ID = id,
+                    Id = id,
                     Name = formulaName,
                     //Type = new Option()
                     //{
@@ -156,6 +160,40 @@ namespace MigrationHelper.Modules.Formula
             }
 
             csvFile.Export();
+
+        }
+
+        public void DeployFormula(Guid id, bool exists) {
+
+            try
+            {
+                var lformula = CrmConnManager.LService.Retrieve("north52_formula", id, new ColumnSet(true));
+
+                var e = new Entity("north52_formula");
+                e.Id = lformula.Id;
+                foreach (var a in lformula.Attributes)
+                {
+                    if (a.Key.StartsWith("north52_"))
+                    { 
+                        e[a.Key] = lformula[a.Key];
+                    }
+                }
+
+                if (!exists)
+                    CrmConnManager.RService.Create(e);
+                else
+                    CrmConnManager.RService.Update(e);
+
+                int stateCode = (lformula["statecode"] as OptionSetValue).Value;
+                int statusCode = (lformula["statuscode"] as OptionSetValue).Value;
+
+                CrmHelper.SetStatus(CrmConnManager.RService, lformula.LogicalName, lformula.Id, stateCode, statusCode);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"FormulaManager:DeployFormula:Exception: {ex.Message}");
+            }
 
         }
     }

@@ -100,7 +100,7 @@ namespace MigrationHelper.Modules.Task
 
                 var formula = new CrmFormula()
                 {
-                    ID = id,
+                    Id = id,
                     Name = name,
                     Type = new MigrationHelper.Option()
                     {
@@ -123,7 +123,7 @@ namespace MigrationHelper.Modules.Task
                 //txtLog.AppendText($"Formula Name: {entityName}:{formula.Name}, Type: {formula.Type.Name} {Environment.NewLine}");
 
 
-                CrmHelper.DeactivateRecord("north52_formula", formula.ID, CrmConnManager.LService);
+                CrmHelper.DeactivateRecord("north52_formula", formula.Id, CrmConnManager.LService);
 
             }
         }
